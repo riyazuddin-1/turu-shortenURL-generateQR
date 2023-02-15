@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color:rgb(68, 180, 154);;
+        }
+        #image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        img, button{
+            width: 300px;
+        }
+        button{
+            padding: 10px;
+            background-color: rgb(11, 112, 73);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+    <title>QRcode</title>
+</head>
+<body>
+    <div id="image">
+        <img src=<%=src%> alt="qr"><br>
+        <a href=<%=src%> download><button>download</button></a>
+    </div>
+    
+</body>
+</html>

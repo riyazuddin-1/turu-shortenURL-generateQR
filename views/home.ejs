@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="Url, short, url shortener, qr, qrcode, generate, qrcode generator, generate qr, free, javascript, nodejs">
+    <link rel="icon" type="image/x-icon" href="/public/favicon.svg">
+    <link rel="stylesheet" href="/public/style.css">
+    <title>Turu | Shorten url 🔥Generate QR</title>
+</head>
+<body>
+<div id="home">
+    <div id="landing">
+        <main>
+        <h1>Turu'ly easy, <br>Turu'ly FREE!!</h1>
+        <section>
+            <h2><u>Easy to use</u></h2>
+            <p>Turu is an easy to use web app, to shorten any lengthy url and to generate a QR for any type of content such as a URL, text, JSON data,..</p>
+        </section>
+        <section>
+            <h2><u>Free for all, no login</u></h2>
+            <p>The app is free to use without any requirement of login/signup.</p>
+        </section>
+        <section>
+            <h2><u>Download QR</u></h2>
+            <p>The QR generated can be downloaded directly.</p>
+        </section>
+        </main>
+    </div>
+    <div id="page">
+        <div id="urlShortener">
+            <form action="" method="post">
+                <input type="text" name="url" class="url" placeholder="Shorten the url" required>
+                <input type="submit" value="Shorten" class="btn">
+            </form>
+            <div id="shortened">
+                <input type="text" name="shortenedurl" placeholder="Copy url" class="url" id="copy" value=<%= shorturl %>>
+                <button onclick="myFunction()" class="btn">Copy</button>
+            </div>
+        </div>
+        <div id="generateqr">
+            <form action="/getqr" method="get">
+                <input type="text" name="qrurl" class="url" placeholder="URL to generate QR" required>
+                <input type="submit" value="Generate QR" class="btn">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function myFunction() {
+        var copyText = document.getElementById("copy");
+        if(copyText.value) {
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);  
+            document.execCommand("copy");
+            alert("Copied the URL: " + copyText.value);
+        }
+    }
+</script>
+</html>
