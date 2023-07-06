@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="keywords" content="Url, short, url shortener, qr, qrcode, generate, qrcode generator, generate qr, free, javascript, nodejs">
     <link rel="icon" type="image/x-icon" href="/public/favicon.svg">
-    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/public/istyle.css">
     <title>Turu | Shorten url 🔥Generate QR</title>
 </head>
 <body>
@@ -26,37 +26,100 @@
             <h2><u>Download QR</u></h2>
             <p>The QR generated can be downloaded directly.</p>
         </section>
+        <section>
+            <h2><u>Make things easier!</u></h2>
+            <p>Download our chrome extension</p>
+        </section>
         </main>
     </div>
     <div id="page">
         <div id="urlShortener">
+            <p id="message"></p>
             <form action="" method="post">
-                <input type="text" name="url" class="url" placeholder="Shorten the url" required>
-                <input type="submit" value="Shorten" class="btn">
+                <input type="text" name="url" id="url" class="inputTab" placeholder="Shorten the url" required>
+                <button type="button" value="Shorten" onclick="getURL()" class="btn" id="shorten">Shorten</button>
             </form>
             <div id="shortened">
-                <input type="text" name="shortenedurl" placeholder="Copy url" class="url" id="copy" value=<%= shorturl %>>
-                <button onclick="myFunction()" class="btn">Copy</button>
+                <input type="text" name="shortenedurl" class="url" id="copy" value="" readonly>
+                <button onclick="myFunction()">Copy</button>
             </div>
         </div>
         <div id="generateqr">
-            <form action="/getqr" method="get">
-                <input type="text" name="qrurl" class="url" placeholder="URL to generate QR" required>
-                <input type="submit" value="Generate QR" class="btn">
+            <p id="message2"></p>
+            <form action="/getqr" method="get" id="qrform">
+                <input type="text" name="qrurl" id="content" class="inputTab" placeholder="Content to generate QR" required>
+                <button type="button" onclick="getQR()" class="btn">GenerateQR</button>
             </form>
         </div>
+        <div id="chrmExtn" onclick="location.href='/chrome-extension';">
+            <h2>Get <i style="color: white;font-weight: normal;">Chrome - Extension</i> <span style="float:right;color: white;font-weight: normal;">&gt;</span> </h2>
+            <p>Download our chrome extension and make things easier</p>
+        </div>
+        <p>Note: Extension is not published onto the chrome web store. So, the files need to be downloaded locally and then unpacked at chrome://extensions</p>
     </div>
 </div>
 </body>
 <script>
+    var url = document.getElementById("url");
+    var qr = document.getElementById("content");
+
+    async function getURL() {
+        const regexp = new RegExp(/^(https?|chrome):\/\//, 'i');
+        const regurl = new RegExp(/[^\s$.?#]+\..+/);
+        var urlIp = url.value;
+        if(!regexp.test(url.value)) {
+            urlIp = 'http://' + url.value;
+        }
+        if(!regurl.test(urlIp)) {
+            msgPrompt("message", 'url is invalid')
+        } else {
+            url.readOnly = true;
+            document.getElementById("shorten").classList.add('loadAnimation');
+            const data = { queryUrl: urlIp };
+            const response = await fetch("/urlapi", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.text();
+            if(result == 'A server error has occurredFUNCTION_INVOCATION_FAILED') {
+                getURL();
+            } else {
+                url.readOnly = false;
+                document.getElementById("shorten").classList.remove('loadAnimation');
+                document.getElementById("shortened").style.display = "block";
+                document.getElementById("copy").value = result;
+            }
+        }
+    }
+
+    function getQR() {
+        if(document.getElementById("content").value) {
+            document.getElementById("qrform").submit();
+        } else {
+            msgPrompt('message2', 'Content field cannot be empty');
+        }
+    }
+
     function myFunction() {
         var copyText = document.getElementById("copy");
         if(copyText.value) {
             copyText.select();
             copyText.setSelectionRange(0, 99999);  
             document.execCommand("copy");
-            alert("Copied the URL: " + copyText.value);
+            msgPrompt('message', "Copied: " + copyText.value);
         }
+    }
+
+    function msgPrompt(id, msg) {
+        var prompt = document.getElementById(id);
+        prompt.style.display = 'block';
+        prompt.innerHTML = msg;
+        setTimeout(()=>{
+            prompt.style.display = 'none';
+        }, 5000)
     }
 </script>
 </html>

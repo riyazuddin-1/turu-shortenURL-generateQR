@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/istyle.css">
+    <title>Get chrome extension</title>
+</head>
+<body>
+    <h1 style="margin-top: 50px; text-align: center;">
+        Get our Chrome Extension
+    </h1>
+    <div class="extensionContent">
+        <p>Note: Extension is not published onto the chrome web store. So, the files need to be downloaded locally and then unpacked at chrome://extensions</p>
+        <p class="help" onclick="myFunction()" id="dropInstructions">Need help?<span style="float: right;">&#8595;</span></p>
+        <div class="help" id="instructions">
+            <hr>
+            <section>
+                <h4>Step 1: Click on Download</h4>
+                <p>
+                    Download the zip folder of the Extension files 
+                    by clicking the below 'Download Extension files' button
+                </p>
+                <img src="/public/images/step1.png" alt="">
+            </section>
+            <hr>
+            <section>
+                <h4>Step 2: Extract files</h4>
+                <p>
+                    Extract the files and save them at desired location
+                    and with the desired folder name(this is required for further steps)
+                </p>
+                <img src="/public/images/step2.png" alt="">
+                <img src="/public/images/step2(2).png" alt="">
+            </section>
+            <hr>
+            <section>
+                <h4>Step 3: The location of files</h4>
+                <p>
+                    Note down the location of the folder where
+                    the extension files are extracted
+                </p>
+                <img src="/public/images/step3.png" alt="">
+            </section>
+            <hr>
+            <section>
+                <h4>Step 4: Getting the extension</h4>
+                <p>
+                    To use the extension with chrome or brave,
+                    go to chrome://extensions and turn on the 
+                    Developer mode.<br>
+                    Then click on 'Load unpacked'
+                </p>
+                <img src="/public/images/step4.png" alt="">
+            </section>
+            <hr>
+            <section>
+                <h4>Step 5: Loading the files</h4>
+                <p>
+                    In the file explorer prompt enter the location
+                    that was noted in step 3, and select the folder
+                </p>
+                <img src="/public/images/step5.png" alt="">
+            </section>
+            <hr>
+            <section>
+                <h4>Aaaaannd... There you have it</h4>
+                <img src="/public/images/step6.png" alt="">
+            </section>
+        </div>
+        <a href="/public/extension.zip" download>
+            <button id="files">Download Extension files</button>
+        </a>
+    </div>
+</body>
+<script>
+    var show = false;
+    function myFunction() {
+        if(show) {
+            document.getElementById('instructions').style.display = 'none';
+            show = false;
+        } else {
+            document.getElementById('instructions').style.display = 'block';
+            show = true;
+        }
+    }
+</script>
+</html>
